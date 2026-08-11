@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The VC Starter Kit — Naman Sondhi</title>
+<meta name="description" content="How venture capital actually works, in plain English — fund mechanics, the power law, rounds and dilution, term sheets, SAFEs, and the VC method. A free primer by Naman Sondhi.">
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="%230E7A5F"/><text x="32" y="45" font-family="Georgia,serif" font-size="38" text-anchor="middle" fill="%23F6F9F7">N</text></svg>'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F9F7; --ink:#0F1C17; --body-ink:#3C4B45; --muted:#5E6E67;
+  --accent:#0E7A5F; --tick:#2FCE96; --down:#B4483E; --mint:#E3F1EA;
+  --sweep:#ABDFC9; --rule:#DFE7E2; --card:#FFFFFF; --panel:#0C221B; --panel-ink:#EAF3EE;
+  --mono:"IBM Plex Mono", ui-monospace, monospace;
+  --serif:"Newsreader", Georgia, serif;
+  --sans:"Public Sans", -apple-system, "Segoe UI", sans-serif;
+}
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:smooth; scroll-padding-top:84px; }
+body{ font-family:var(--sans); font-size:17px; line-height:1.68; color:var(--ink); background:var(--bg); }
+body::before{ content:""; display:block; height:4px; background:linear-gradient(90deg, var(--accent), var(--tick)); }
+::selection{ background:var(--sweep); color:var(--ink); }
+:focus-visible{ outline:2.5px solid var(--accent); outline-offset:3px; border-radius:4px; }
+.wrap{ max-width:1060px; margin:0 auto; padding-left:clamp(20px,5vw,48px); padding-right:clamp(20px,5vw,48px); }
+
+.topbar{
+  position:sticky; top:0; z-index:50; background:rgba(246,249,247,.88);
+  backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-bottom:1px solid var(--rule);
+}
+.topbar .wrap{ display:flex; align-items:center; justify-content:space-between; gap:1rem; padding-top:.95rem; padding-bottom:.95rem; }
+.wordmark{
+  font-family:var(--mono); font-size:.78rem; font-weight:500; letter-spacing:.16em;
+  text-decoration:none; color:var(--ink); display:inline-flex; align-items:center; gap:.6em; white-space:nowrap;
+}
+.wordmark::before{ content:""; width:10px; height:10px; background:var(--accent); display:inline-block; }
+.back{
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+  text-decoration:none; color:var(--muted); border-bottom:1.5px solid transparent;
+  transition:color .18s ease, border-color .18s ease;
+}
+.back:hover{ color:var(--ink); border-color:var(--tick); }
+
+section{ padding:clamp(40px, 6vw, 76px) 0; }
+.sec-grid{ display:grid; grid-template-columns:200px 1fr; gap:1.4rem clamp(2rem,5vw,4.5rem); align-items:start; }
+.tag{
+  font-family:var(--mono); font-size:.72rem; font-weight:500; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--muted); display:inline-flex; align-items:center; gap:.65em; padding-top:.4em;
+}
+.tag::before{ content:""; width:9px; height:9px; background:var(--tick); flex:none; }
+h2{
+  font-family:var(--serif); font-optical-sizing:auto; font-weight:500;
+  font-size:clamp(1.7rem, 3.6vw, 2.3rem); line-height:1.15; letter-spacing:-.01em; margin-bottom:1.1rem;
+}
+p{ color:var(--body-ink); max-width:62ch; }
+p + p{ margin-top:1em; }
+p b{ color:var(--ink); font-weight:600; }
+
+.hero{ padding:clamp(70px, 9.5vw, 118px) 0 clamp(48px, 7vw, 84px); }
+.eyebrow{
+  font-family:var(--mono); font-size:.72rem; font-weight:500; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--accent); margin-bottom:1.6rem;
+}
+h1{
+  font-family:var(--serif); font-optical-sizing:auto; font-weight:500;
+  font-size:clamp(2.3rem, 6.4vw, 4.1rem); line-height:1.05; letter-spacing:-.015em;
+  max-width:17ch; margin-bottom:1.5rem;
+}
+.hl{
+  background-image:linear-gradient(104deg, transparent 1.2%, var(--sweep) 2.8%, var(--sweep) 97%, transparent 98.5%);
+  background-repeat:no-repeat; background-size:0% .68em; background-position:0 70%;
+  -webkit-box-decoration-break:clone; box-decoration-break:clone;
+  transition:background-size 1s cubic-bezier(.22,.61,.21,1) .35s;
+}
+body.loaded .hl{ background-size:100% .68em; }
+.lead{ font-size:clamp(1.02rem, 1.6vw, 1.18rem); line-height:1.7; max-width:56ch; }
+
+.rows{ border-bottom:1px solid var(--rule); }
+.row{ display:grid; grid-template-columns:210px 1fr; gap:.35rem 2rem; padding:1.1rem 0; border-top:1px solid var(--rule); }
+.row dt{
+  font-family:var(--mono); font-size:.72rem; font-weight:500; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--accent); padding-top:.28em;
+}
+.row dd{ color:var(--body-ink); }
+.rows-tight .row{ padding:.85rem 0; }
+
+.xbox{
+  margin-top:1.6rem; background:var(--card); border:1px solid var(--rule);
+  border-left:4px solid var(--tick); border-radius:10px; padding:1.1rem 1.3rem;
+}
+.xbox-label{
+  font-family:var(--mono); font-size:.62rem; font-weight:500; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--muted); margin-bottom:.55rem;
+}
+.xbox p{ font-size:.96rem; max-width:70ch; }
+.xbox .m{ font-family:var(--mono); font-size:.88em; color:var(--ink); background:var(--mint); border-radius:5px; padding:.08em .4em; white-space:nowrap; }
+
+.note{
+  font-family:var(--mono); font-size:.68rem; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--muted); margin-top:1.4rem;
+}
+
+.linklist{ margin-top:1.4rem; }
+.linkrow{
+  display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap;
+  gap:.35rem 1.5rem; padding:1.35rem 0; border-top:1px solid var(--rule);
+  text-decoration:none; color:var(--ink); transition:padding-left .2s ease;
+}
+.linkrow:last-of-type{ border-bottom:1px solid var(--rule); }
+.linkrow:hover{ padding-left:.5rem; }
+.link-name{
+  font-family:var(--serif); font-optical-sizing:auto; font-weight:500;
+  font-size:clamp(1.3rem, 2.8vw, 1.7rem); line-height:1.2;
+  display:inline-flex; align-items:baseline; gap:.5em; transition:color .18s ease;
+}
+.linkrow:hover .link-name{ color:var(--accent); }
+.link-arrow{ font-family:var(--mono); font-size:.8em; transition:transform .2s ease; }
+.linkrow:hover .link-arrow{ transform:translate(4px,-4px); }
+.link-meta{ font-family:var(--mono); font-size:.7rem; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); }
+
+.btn{
+  display:inline-flex; align-items:center; gap:.55em; font-family:var(--sans);
+  font-size:.95rem; font-weight:600; line-height:1; padding:.95em 1.35em;
+  border-radius:8px; border:1.5px solid var(--ink); text-decoration:none;
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.btn-primary{ background:var(--ink); color:var(--bg); }
+.btn-primary:hover{ transform:translateY(-2px); box-shadow:0 8px 18px rgba(15,28,23,.2); }
+
+footer{ border-top:1px solid var(--rule); }
+footer .wrap{
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;
+  gap:.5rem 1.5rem; padding-top:1.6rem; padding-bottom:2rem;
+  font-family:var(--mono); font-size:.68rem; letter-spacing:.15em; text-transform:uppercase; color:var(--muted);
+}
+footer a{ color:var(--muted); text-decoration:none; border-bottom:1.5px solid transparent; transition:color .18s ease, border-color .18s ease; }
+footer a:hover{ color:var(--ink); border-color:var(--tick); }
+
+.reveal{ opacity:0; transform:translateY(16px); transition:opacity .7s ease, transform .7s ease; }
+.reveal.in{ opacity:1; transform:none; }
+
+@media (max-width: 760px){
+  .sec-grid{ grid-template-columns:1fr; gap:1.1rem; }
+  .row{ grid-template-columns:1fr; gap:.2rem; padding:1rem 0; }
+  body{ font-size:16px; }
+}
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ transition:none !important; animation:none !important; }
+  .hl{ background-size:100% .68em; }
+  .reveal{ opacity:1; transform:none; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="wordmark" href="index.html">N.SONDHI</a>
+    <a class="back" href="index.html">← Back to the site</a>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">The VC Starter Kit &nbsp;|&nbsp; Free, no jargon left undefined</p>
+      <h1>How venture capital <span class="hl">actually works.</span></h1>
+      <p class="lead">The primer I wish someone had handed me: fund mechanics, the math, the term sheet, and the vocabulary — written in plain English by an MBA candidate living inside this material at USC Marshall, with ten-plus years of investing behind it.</p>
+    </div>
+  </section>
+
+  <!-- 01 THE SHORT VERSION -->
+  <section>
+    <div class="wrap sec-grid reveal">
+      <span class="tag">The short version</span>
+      <div>
+        <h2>VC is equity money for companies banks won't touch.</h2>
+        <p>A startup with no profits, no collateral, and a decent chance of dying can't borrow. So instead it sells <b>ownership</b> — shares — to investors who accept that most of these bets fail, because the ones that work can return 100x. That's venture capital: high-risk equity financing, in exchange for a piece of the upside.</p>
+        <p>Everything else on this page — funds, term sheets, SAFEs, dilution — is machinery built around that one trade. Understand the trade, and the machinery starts making sense.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 THE PLAYERS -->
+  <section>
+    <div class="wrap sec-grid reveal">
+      <span class="tag">The players</span>
+      <div>
+        <h2>Who's actually in the room.</h2>
+        <dl class="rows">
+          <div class="row">
+            <dt>LPs — Limited Partners</dt>
+            <dd>The money behind the money: pension funds, university endowments, family offices, wealthy individuals. They commit capital to a fund and stay hands-off.</dd>
+          </div>
+          <div class="row">
+            <dt>GPs — General Partners</dt>
+            <dd>The VCs themselves. They raise the fund from LPs, pick the startups, sit on boards, and are legally on the hook for running it all.</dd>
+          </div>
+          <div class="row">
+            <dt>The fund</dt>
+            <dd>A pool of committed capital — say $100M — with a roughly 10-year life. New investments happen in the first 3–5 years; the rest is reserved for follow-ons and waiting for exits.</dd>
+          </div>
+          <div class="row">
+            <dt>2 and 20</dt>
+            <dd>How GPs get paid: about 2% of the fund per year as a management fee (keeps the lights on), plus 20% of the profits — called <b>carry</b> — once LPs get their money back.</dd>
+          </div>
+          <div class="row">
+            <dt>Founders</dt>
+            <dd>Sell slices of their company round by round. Their job in this system: make the slice everyone holds worth vastly more than the whole was at the start.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 FUND MATH -->
+  <section>
+    <div class="wrap sec-grid reveal">
+      <span class="tag">The fund math</span>
+      <div>
+        <h2>The power law runs everything.</h2>
+        <p>Venture returns don't follow a bell curve. In a typical portfolio, a large share of companies return less than the money invested, a handful do fine, and <b>one or two outliers generate nearly all of the fund's returns</b>. This is the power law, and it explains almost every VC behavior that looks strange from the outside.</p>
+        <p>It's why investors ask "can this be huge?" before "is this safe?" — a startup that safely triples doesn't move a fund. It's why VCs push for big markets, fast growth, and outcomes that can <b>return the entire fund</b> from a single position. And it's why they target meaningful ownership — often 10–20% at entry — because owning 1% of even a great outcome isn't enough to matter.</p>
+        <div class="xbox">
+          <p class="xbox-label">Why "return the fund" is the bar</p>
+          <p>A $100M fund owns 15% of a startup that exits for $700M. Its stake is worth <span class="m">$105M</span> — one deal just returned the whole fund. Everything else in the portfolio is now upside. That's the outcome every partner is underwriting for.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 RAISING ROUNDS -->
+  <section>
+    <div class="wrap sec-grid reveal">
+      <span class="tag">Raising rounds</span>
+      <div>
+        <h2>Rounds, valuations, and dilution.</h2>
+        <p>Startups raise in stages, each round funding the next 18–24 months of proof. The labels are conventions, not laws, but roughly:</p>
+        <dl class="rows">
+          <div class="row">
+            <dt>Pre-seed</dt>
+            <dd>Idea and team. Money from angels and pre-seed funds, often on SAFEs, to build a first version.</dd>
+          </div>
+          <div class="row">
+            <dt>Seed</dt>
+            <dd>Early signs of life — users, pilots, first revenue. Institutional seed funds join; the goal is proving product-market fit.</dd>
+          </div>
+          <div class="row">
+            <dt>Series A</dt>
+            <dd>A repeatable engine. A lead VC prices the round, takes a board seat, and funds scaling what already works.</dd>
+          </div>
+          <div class="row">
+            <dt>Series B and beyond</dt>
+            <dd>Pouring fuel: growth capital to expand a proven model, with later rounds looking more and more like private equity.</dd>
+          </div>
+        </dl>
+        <div class="xbox">
+          <p class="xbox-label">Worked example — pre-money, post-money, dilution</p>
+          <p>A VC invests <span class="m">$2M</span> at an <span class="m">$8M pre-money</span> valuation. Post-money = 8 + 2 = <span class="m">$10M</span>. The investor's stake = 2 ÷ 10 = <span class="m">20%</span>. Every existing holder — founders included — just got diluted by 20%: a founder who owned 60% now owns 48%. Dilution isn't failure; it's the price of fuel. The question is always whether 48% of the bigger thing beats 60% of the smaller one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 TERM SHEET -->
+  <section>
+    <div class="wrap sec-grid reveal">
+      <span class="tag">The term sheet</span>
+      <div>
+        <h2>The six terms that actually matter.</h2>
+        <p>A term sheet is the non-binding blueprint of a deal. Valuation gets the headlines, but these clauses decide who gets what when things go right — and especially when they don't:</p>
+        <dl class="rows">
+          <div class="row">
+            <dt>Liquidation preference</dt>
+            <dd>Investors get their money out first in a sale. The standard is <b>1x non-participating</b>: take your money back, or convert to common and take your ownership share — whichever is worth more, not both.</dd>
+          </div>
+          <div class="row">
+            <dt>Participating preferred</dt>
+            <dd>The aggressive version: money back <b>and</b> a share of what's left — the "double dip." Founders resist it; in decent markets it's rare.</dd>
+          </div>
+          <div class="row">
+            <dt>Anti-dilution</dt>
+            <dd>Protects investors if a later round prices lower (a down round). <b>Broad-based weighted average</b> is the fair standard; <b>full ratchet</b> — repricing as if they'd invested at the new low price — is punitive.</dd>
+          </div>
+          <div class="row">
+            <dt>Pro-rata rights</dt>
+            <dd>The right to invest again in future rounds to maintain your ownership percentage. How early investors ride winners all the way up.</dd>
+          </div>
+          <div class="row">
+            <dt>Option pool shuffle</dt>
+            <dd>Investors often require an employee option pool created <b>before</b> the round — carved out of the founders' side. A 10% pool inside an $8M pre effectively lowers what founders are really being paid for their shares. Always ask: pool pre or post?</dd>
+          </div>
+          <div class="row">
+            <dt>Board &amp; protective provisions</dt>
+            <dd>Who controls decisions: board seats, plus investor veto rights over big moves (selling the company, raising again, changing the charter). Control terms outlast valuation terms.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 SAFES & NOTES -->
+  <section>
+    <div class="wrap sec-grid reveal">
+      <span class="tag">SAFEs &amp; notes</span>
+      <div>
+        <h2>How early money skips the valuation fight.</h2>
+        <p>Pricing a company that's two people and a demo is guesswork, so early rounds often defer it. The instrument of choice is the <b>SAFE</b> — Simple Agreement for Future Equity — money now that converts into shares at the next priced round.</p>
+        <dl class="rows">
+          <div class="row">
+            <dt>Valuation cap</dt>
+            <dd>The maximum valuation your money converts at. Invest $100K at a $5M cap and the company raises later at $20M — you convert as if it were worth $5M, getting roughly 4x the shares of new investors.</dd>
+          </div>
+          <div class="row">
+            <dt>Discount</dt>
+            <dd>The alternative sweetener: convert at, say, 20% below the next round's price. When a SAFE has both, the investor takes whichever converts better.</dd>
+          </div>
+          <div class="row">
+            <dt>Post-money SAFE</dt>
+            <dd>The current YC standard. Ownership is knowable immediately: $500K on a $5M post-money cap = 10% (before the next round dilutes everyone). Cleaner math, slightly more founder dilution.</dd>
+          </div>
+          <div class="row">
+            <dt>Convertible note</dt>
+            <dd>The SAFE's older sibling — legally debt, so it adds an interest rate (2–8%) and a maturity date. Same conversion idea, more paperwork and a ticking clock.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 VC METHOD -->
+  <section>
+    <div class="wrap sec-grid reveal">
+      <span class="tag">The VC method</span>
+      <div>
+        <h2>How a VC prices a startup in 60 seconds.</h2>
+        <p>Forget DCFs — there are no cash flows to discount. The VC method works <b>backwards from the exit</b>:</p>
+        <div class="xbox">
+          <p class="xbox-label">Worked example — backing into a valuation</p>
+          <p>A fund considers a <span class="m">$5M</span> check and, given the risk, needs a <span class="m">10x</span> — so the stake must be worth <span class="m">$50M</span> at exit. They believe the company can exit at <span class="m">$500M</span>, so they need <span class="m">10%</span> ownership at exit. But future rounds will dilute them — assume they'll keep only 75% of today's stake. So they need 10% ÷ 0.75 ≈ <span class="m">13.3%</span> today. For $5M to buy 13.3%, post-money must be 5 ÷ 0.133 ≈ <span class="m">$37.5M</span>. That's the offer — and now you know exactly which assumptions to argue with.</p>
+        </div>
+        <p>Every input is debatable — exit value, target multiple, dilution — which is precisely the point. The method doesn't remove judgment; it shows you where the judgment lives.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 GLOSSARY -->
+  <section>
+    <div class="wrap sec-grid reveal">
+      <span class="tag">Glossary sprint</span>
+      <div>
+        <h2>Twelve terms that unlock the rest.</h2>
+        <dl class="rows rows-tight">
+          <div class="row"><dt>Cap table</dt><dd>The spreadsheet of truth: who owns what, at which price, with which rights.</dd></div>
+          <div class="row"><dt>Dilution</dt><dd>Your percentage shrinking as new shares are issued. Normal; the goal is a smaller slice of a much bigger pie.</dd></div>
+          <div class="row"><dt>Runway</dt><dd>Months of cash left at the current burn rate. Fundraising starts long before it hits zero.</dd></div>
+          <div class="row"><dt>Burn rate</dt><dd>Net cash a startup spends per month.</dd></div>
+          <div class="row"><dt>Lead investor</dt><dd>The VC who sets the round's terms, writes the biggest check, and usually takes the board seat.</dd></div>
+          <div class="row"><dt>Bridge round</dt><dd>A smaller raise to extend runway to a milestone — a bridge to somewhere, ideally.</dd></div>
+          <div class="row"><dt>Down round</dt><dd>Raising at a lower valuation than last time. Triggers anti-dilution, bruises morale, beats dying.</dd></div>
+          <div class="row"><dt>Dry powder</dt><dd>Committed capital a fund hasn't deployed yet.</dd></div>
+          <div class="row"><dt>MOIC</dt><dd>Multiple on invested capital — total value ÷ money in. The simplest "how did we do."</dd></div>
+          <div class="row"><dt>TVPI / DPI</dt><dd>Fund-level MOIC: TVPI counts paper value plus cash returned; DPI counts only cash actually returned to LPs. DPI is the one you can spend.</dd></div>
+          <div class="row"><dt>IRR</dt><dd>Annualized return that accounts for timing — because getting 3x in four years beats 3x in twelve.</dd></div>
+          <div class="row"><dt>Carry</dt><dd>The GP's 20% share of fund profits. The reason the job pays.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 KEEP GOING -->
+  <section>
+    <div class="wrap sec-grid reveal">
+      <span class="tag">Keep going</span>
+      <div>
+        <h2>You've got the map. Here's the live feed.</h2>
+        <p>This page is the fundamentals — the part that doesn't change. For the part that changes every week (deals, funds, and what they mean), follow along:</p>
+        <div class="linklist">
+          <a class="linkrow" href="https://substack.com/@vcwithns" target="_blank" rel="noopener">
+            <span class="link-name">The newsletter <span class="link-arrow" aria-hidden="true">↗</span></span>
+            <span class="link-meta">This week in VC, decoded</span>
+          </a>
+          <a class="linkrow" href="https://beacons.ai/vcwithns" target="_blank" rel="noopener">
+            <span class="link-name">VC with NS <span class="link-arrow" aria-hidden="true">↗</span></span>
+            <span class="link-meta">Every update &amp; resource, one link</span>
+          </a>
+          <a class="linkrow" href="mailto:naman.sondhi15@gmail.com?subject=VC%20question">
+            <span class="link-name">Ask me anything <span class="link-arrow" aria-hidden="true">↗</span></span>
+            <span class="link-meta">Student questions welcome</span>
+          </a>
+        </div>
+        <p style="margin-top:2rem"><a class="btn btn-primary" href="index.html">← Back to namansondhi</a></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year">2026</span> Naman Sondhi · Educational, not investment advice</span>
+    <a href="index.html">Back to the site ↑</a>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduced) { document.body.classList.add("loaded"); }
+  else { window.addEventListener("load", function(){ document.body.classList.add("loaded"); }); }
+  var reveals = document.querySelectorAll(".reveal");
+  if (reduced || !("IntersectionObserver" in window)) {
+    reveals.forEach(function(el){ el.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    reveals.forEach(function(el){ io.observe(el); });
+  }
+</script>
+
+</body>
+</html>
