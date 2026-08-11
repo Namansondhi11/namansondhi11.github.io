@@ -203,27 +203,33 @@ def fetch_yahoo(tickers):
 
 
 def fetch_mf_nav(query, label):
-    """Latest Direct-Growth NAV via mfapi.in. Returns (nav, scheme_name) or None."""
+    """Latest Direct-Growth NAV via mfapi.in. Returns (nav, scheme_name) or None.
+    Never raises — any network/parse problem returns None so the run continues."""
     import requests
-    if label in SCHEME_OVERRIDES:
-        code = SCHEME_OVERRIDES[label]
-        r = requests.get(f"https://api.mfapi.in/mf/{code}/latest", timeout=20)
-        j = r.json()
-        return float(j["data"][0]["nav"]), j["meta"]["scheme_name"]
-    r = requests.get("https://api.mfapi.in/mf/search", params={"q": query}, timeout=20)
-    cands = [c for c in r.json()
-             if "direct" in c["schemeName"].lower()
-             and "growth" in c["schemeName"].lower()
-             and "idcw" not in c["schemeName"].lower()]
-    if not cands:
-        print(f"  ! No Direct-Growth match for '{query}' — pin it in SCHEME_OVERRIDES")
+    try:
+        if label in SCHEME_OVERRIDES:
+            code = SCHEME_OVERRIDES[label]
+            r = requests.get(f"https://api.mfapi.in/mf/{code}/latest", timeout=25)
+            j = r.json()
+            return float(j["data"][0]["nav"]), j["meta"]["scheme_name"]
+
+        r = requests.get("https://api.mfapi.in/mf/search", params={"q": query}, timeout=25)
+        cands = [c for c in r.json()
+                 if "direct" in c["schemeName"].lower()
+                 and "growth" in c["schemeName"].lower()
+                 and "idcw" not in c["schemeName"].lower()]
+        if not cands:
+            print(f"  ! No Direct-Growth match for '{query}' — pin it in SCHEME_OVERRIDES")
+            return None
+        # Shortest matching name is almost always the plain Growth plan
+        best = min(cands, key=lambda c: len(c["schemeName"]))
+        code = best["schemeCode"]
+        r = requests.get(f"https://api.mfapi.in/mf/{code}/latest", timeout=25)
+        nav = float(r.json()["data"][0]["nav"])
+        return nav, best["schemeName"]
+    except Exception as e:
+        print(f"  ! NAV fetch failed for '{label}' ({type(e).__name__}) — reusing previous value")
         return None
-    # Shortest matching name is almost always the plain Growth plan
-    best = min(cands, key=lambda c: len(c["schemeName"]))
-    code = best["schemeCode"]
-    r = requests.get(f"https://api.mfapi.in/mf/{code}/latest", timeout=20)
-    nav = float(r.json()["data"][0]["nav"])
-    return nav, best["schemeName"]
 
 
 # ------------------------------------------------------------
@@ -241,8 +247,12 @@ def get_prices(offline):
         for h in book["holdings"]:
             if h.get("yf"):
                 yf_tickers.append(h["yf"])
-    print(f"Fetching {len(yf_tickers)} equities from Yahoo Finance...")
-    prices.update(fetch_yahoo(yf_tickers))
+
+    try:
+        print(f"Fetching {len(yf_tickers)} equities from Yahoo Finance...")
+        prices.update(fetch_yahoo(yf_tickers))
+    except Exception as e:
+        print(f"  ! Equity fetching unavailable ({type(e).__name__}) — reusing previous values")
 
     print("Fetching mutual fund NAVs from mfapi.in...")
     for h in CONFIG["inmf"]["holdings"]:
@@ -267,6 +277,7 @@ def previous_price(old_json, book_key, label, avg):
 
 def build_json(prices, old_json):
     books_out = {}
+    unpriced = []
     for key, book in CONFIG.items():
         rows, tot_val, tot_inv = [], 0.0, 0.0
         for h in book["holdings"]:
@@ -278,8 +289,8 @@ def build_json(prices, old_json):
                 if px is None:
                     px = previous_price(old_json, key, h["t"], h["avg"])
                     if px is None:
-                        print(f"  !! No price for {h['t']} and no fallback — skipping run")
-                        sys.exit(1)
+                        unpriced.append(h["t"])
+                        continue
                     print(f"  ~ {h['t']}: using previous value (fetch failed)")
             val = h["qty"] * px
             inv = h["qty"] * h["avg"]
@@ -287,6 +298,8 @@ def build_json(prices, old_json):
                          "p": round((px / h["avg"] - 1) * 100, 2), "th": h["th"]})
             tot_val += val
             tot_inv += inv
+        if unpriced:
+            return None, unpriced
         rows.sort(key=lambda r: -r["_val"])
         holdings = [{"t": r["t"], "w": round(r["_val"] / tot_val * 100, 2),
                      "p": r["p"], "th": r["th"]} for r in rows]
@@ -297,7 +310,7 @@ def build_json(prices, old_json):
             "holdings": holdings,
         }
     asof = datetime.now(timezone.utc).strftime("%B %-d, %Y")
-    return {"asof": asof, "books": books_out}
+    return {"asof": asof, "books": books_out}, []
 
 
 def inject(html_path, payload):
@@ -340,7 +353,13 @@ def main():
             old_json = None
 
     prices = get_prices(args.offline)
-    payload = build_json(prices, old_json)
+    payload, unpriced = build_json(prices, old_json)
+
+    if payload is None:
+        print("\nCould not price: " + ", ".join(unpriced))
+        print("Leaving index.html untouched. The site keeps its last good numbers.")
+        return  # exit 0 — a missed refresh is not a build failure
+
     inject(args.file, payload)
 
     print(f"\nUpdated {args.file} — as of {payload['asof']}")
