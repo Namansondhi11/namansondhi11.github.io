@@ -159,17 +159,46 @@ MARKER_RE = re.compile(
 # ------------------------------------------------------------
 
 def fetch_yahoo(tickers):
-    """Return {ticker: last_close} using yfinance."""
+    """Return {ticker: last_close}. Tries a bulk download, then falls back to
+    per-ticker requests so one bad symbol can't take down the whole run."""
     import yfinance as yf
     out = {}
-    data = yf.download(tickers, period="5d", progress=False, auto_adjust=False,
-                       group_by="ticker", threads=True)
-    for t in tickers:
-        try:
-            closes = data[t]["Close"].dropna() if len(tickers) > 1 else data["Close"].dropna()
-            out[t] = float(closes.iloc[-1])
-        except Exception as e:
-            print(f"  ! Yahoo fetch failed for {t}: {e}")
+
+    # Pass 1 — bulk (fast). Wrapped because yfinance's frame shape varies.
+    try:
+        data = yf.download(tickers, period="7d", progress=False,
+                           auto_adjust=False, group_by="ticker", threads=True)
+        for t in tickers:
+            try:
+                if len(tickers) > 1:
+                    closes = data[t]["Close"].dropna()
+                else:
+                    closes = data["Close"].dropna()
+                if len(closes):
+                    out[t] = float(closes.iloc[-1])
+            except Exception:
+                pass
+    except Exception as e:
+        print(f"  ~ bulk download unavailable ({e}); falling back per ticker")
+
+    # Pass 2 — per ticker for anything still missing.
+    missing = [t for t in tickers if t not in out]
+    for t in missing:
+        got = False
+        for attempt in range(2):
+            try:
+                hist = yf.Ticker(t).history(period="7d")
+                closes = hist["Close"].dropna()
+                if len(closes):
+                    out[t] = float(closes.iloc[-1])
+                    got = True
+                    break
+            except Exception as e:
+                err = e
+        if not got:
+            print(f"  ! Yahoo fetch failed for {t} — will reuse previous value")
+
+    print(f"  got {len(out)}/{len(tickers)} equity prices")
     return out
 
 
