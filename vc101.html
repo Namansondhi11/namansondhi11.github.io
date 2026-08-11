@@ -3,27 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The VC Starter Kit — Naman Sondhi</title>
-<meta name="description" content="How venture capital actually works, in plain English — fund mechanics, the power law, rounds and dilution, term sheets, SAFEs, and the VC method. A free primer by Naman Sondhi.">
+<title>The VC Starter Kit - Naman Sondhi</title>
+<meta name="description" content="How venture capital actually works, in plain English - fund mechanics, the power law, rounds and dilution, term sheets, SAFEs, and the VC method. A free primer by Naman Sondhi.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Naman Sondhi">
-<meta property="og:title" content="The VC Starter Kit — How venture capital actually works">
+<meta property="og:title" content="The VC Starter Kit - How venture capital actually works">
 <meta property="og:description" content="A free, plain-English primer: fund mechanics, the power law, rounds and dilution, term sheets, SAFEs, and the VC method.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The VC Starter Kit — How venture capital actually works">
-<meta name="twitter:description" content="Fund mechanics, the power law, dilution, term sheets and SAFEs — in plain English.">
+<meta name="twitter:title" content="The VC Starter Kit - How venture capital actually works">
+<meta name="twitter:description" content="Fund mechanics, the power law, dilution, term sheets and SAFEs - in plain English.">
 <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="%230E7A5F"/><text x="32" y="45" font-family="Georgia,serif" font-size="38" text-anchor="middle" fill="%23F6F9F7">N</text></svg>'>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#F6F9F7; --ink:#0F1C17; --body-ink:#3C4B45; --muted:#5E6E67;
-  --accent:#0E7A5F; --tick:#2FCE96; --down:#B4483E; --mint:#E3F1EA;
-  --sweep:#ABDFC9; --rule:#DFE7E2; --card:#FFFFFF; --panel:#0C221B; --panel-ink:#EAF3EE;
-  --mono:"IBM Plex Mono", ui-monospace, monospace;
-  --serif:"Newsreader", Georgia, serif;
-  --sans:"Public Sans", -apple-system, "Segoe UI", sans-serif;
+ --bg:#F6F9F7; --ink:#0F1C17; --body-ink:#3C4B45; --muted:#5E6E67;
+ --accent:#0E7A5F; --tick:#2FCE96; --down:#B4483E; --mint:#E3F1EA;
+ --sweep:#ABDFC9; --rule:#DFE7E2; --card:#FFFFFF; --panel:#0C221B; --panel-ink:#EAF3EE;
+ --mono:"IBM Plex Mono", ui-monospace, monospace;
+ --serif:"Newsreader", Georgia, serif;
+ --sans:"Public Sans", -apple-system, "Segoe UI", sans-serif;
 }
 *{ margin:0; padding:0; box-sizing:border-box; }
 html{ scroll-behavior:smooth; scroll-padding-top:84px; }
@@ -78,7 +78,7 @@ h1{
 .hl{
   background-image:linear-gradient(104deg, transparent 1.2%, var(--sweep) 2.8%, var(--sweep) 97%, transparent 98.5%);
   background-repeat:no-repeat; background-size:0% .68em; background-position:0 70%;
-  -webkit-box-decoration-break:clone; box-decoration-break:clone;
+ -webkit-box-decoration-break:clone; box-decoration-break:clone;
   transition:background-size 1s cubic-bezier(.22,.61,.21,1) .35s;
 }
 body.loaded .hl{ background-size:100% .68em; }
@@ -176,7 +176,7 @@ footer a:hover{ color:var(--ink); border-color:var(--tick); }
     <div class="wrap">
       <p class="eyebrow">The VC Starter Kit &nbsp;|&nbsp; Free, no jargon left undefined</p>
       <h1>How venture capital <span class="hl">actually works.</span></h1>
-      <p class="lead">The primer I wish someone had handed me: fund mechanics, the math, the term sheet, and the vocabulary — written in plain English by an MBA candidate living inside this material at USC Marshall, with ten-plus years of investing behind it.</p>
+      <p class="lead">The primer I wish someone had handed me: fund mechanics, the math, the term sheet, and the vocabulary - written in plain English by an MBA candidate living inside this material at USC Marshall, with ten-plus years of investing behind it.</p>
     </div>
   </section>
 
@@ -186,8 +186,8 @@ footer a:hover{ color:var(--ink); border-color:var(--tick); }
       <span class="tag">The short version</span>
       <div>
         <h2>VC is equity money for companies banks won't touch.</h2>
-        <p>A startup with no profits, no collateral, and a decent chance of dying can't borrow. So instead it sells <b>ownership</b> — shares — to investors who accept that most of these bets fail, because the ones that work can return 100x. That's venture capital: high-risk equity financing, in exchange for a piece of the upside.</p>
-        <p>Everything else on this page — funds, term sheets, SAFEs, dilution — is machinery built around that one trade. Understand the trade, and the machinery starts making sense.</p>
+        <p>A startup with no profits, no collateral, and a decent chance of dying can't borrow. So instead it sells <b>ownership</b> - shares - to investors who accept that most of these bets fail, because the ones that work can return 100x. That's venture capital: high-risk equity financing, in exchange for a piece of the upside.</p>
+        <p>Everything else on this page - funds, term sheets, SAFEs, dilution - is machinery built around that one trade. Understand the trade, and the machinery starts making sense.</p>
       </div>
     </div>
   </section>
@@ -200,20 +200,20 @@ footer a:hover{ color:var(--ink); border-color:var(--tick); }
         <h2>Who's actually in the room.</h2>
         <dl class="rows">
           <div class="row">
-            <dt>LPs — Limited Partners</dt>
+            <dt>LPs - Limited Partners</dt>
             <dd>The money behind the money: pension funds, university endowments, family offices, wealthy individuals. They commit capital to a fund and stay hands-off.</dd>
           </div>
           <div class="row">
-            <dt>GPs — General Partners</dt>
+            <dt>GPs - General Partners</dt>
             <dd>The VCs themselves. They raise the fund from LPs, pick the startups, sit on boards, and are legally on the hook for running it all.</dd>
           </div>
           <div class="row">
             <dt>The fund</dt>
-            <dd>A pool of committed capital — say $100M — with a roughly 10-year life. New investments happen in the first 3–5 years; the rest is reserved for follow-ons and waiting for exits.</dd>
+            <dd>A pool of committed capital - say $100M - with a roughly 10-year life. New investments happen in the first 3-5 years; the rest is reserved for follow-ons and waiting for exits.</dd>
           </div>
           <div class="row">
             <dt>2 and 20</dt>
-            <dd>How GPs get paid: about 2% of the fund per year as a management fee (keeps the lights on), plus 20% of the profits — called <b>carry</b> — once LPs get their money back.</dd>
+            <dd>How GPs get paid: about 2% of the fund per year as a management fee (keeps the lights on), plus 20% of the profits - called <b>carry</b> - once LPs get their money back.</dd>
           </div>
           <div class="row">
             <dt>Founders</dt>
@@ -231,10 +231,10 @@ footer a:hover{ color:var(--ink); border-color:var(--tick); }
       <div>
         <h2>The power law runs everything.</h2>
         <p>Venture returns don't follow a bell curve. In a typical portfolio, a large share of companies return less than the money invested, a handful do fine, and <b>one or two outliers generate nearly all of the fund's returns</b>. This is the power law, and it explains almost every VC behavior that looks strange from the outside.</p>
-        <p>It's why investors ask "can this be huge?" before "is this safe?" — a startup that safely triples doesn't move a fund. It's why VCs push for big markets, fast growth, and outcomes that can <b>return the entire fund</b> from a single position. And it's why they target meaningful ownership — often 10–20% at entry — because owning 1% of even a great outcome isn't enough to matter.</p>
+        <p>It's why investors ask "can this be huge?" before "is this safe?" - a startup that safely triples doesn't move a fund. It's why VCs push for big markets, fast growth, and outcomes that can <b>return the entire fund</b> from a single position. And it's why they target meaningful ownership - often 10-20% at entry - because owning 1% of even a great outcome isn't enough to matter.</p>
         <div class="xbox">
           <p class="xbox-label">Why "return the fund" is the bar</p>
-          <p>A $100M fund owns 15% of a startup that exits for $700M. Its stake is worth <span class="m">$105M</span> — one deal just returned the whole fund. Everything else in the portfolio is now upside. That's the outcome every partner is underwriting for.</p>
+          <p>A $100M fund owns 15% of a startup that exits for $700M. Its stake is worth <span class="m">$105M</span> - one deal just returned the whole fund. Everything else in the portfolio is now upside. That's the outcome every partner is underwriting for.</p>
         </div>
       </div>
     </div>
@@ -246,7 +246,7 @@ footer a:hover{ color:var(--ink); border-color:var(--tick); }
       <span class="tag">Raising rounds</span>
       <div>
         <h2>Rounds, valuations, and dilution.</h2>
-        <p>Startups raise in stages, each round funding the next 18–24 months of proof. The labels are conventions, not laws, but roughly:</p>
+        <p>Startups raise in stages, each round funding the next 18-24 months of proof. The labels are conventions, not laws, but roughly:</p>
         <dl class="rows">
           <div class="row">
             <dt>Pre-seed</dt>
@@ -254,7 +254,7 @@ footer a:hover{ color:var(--ink); border-color:var(--tick); }
           </div>
           <div class="row">
             <dt>Seed</dt>
-            <dd>Early signs of life — users, pilots, first revenue. Institutional seed funds join; the goal is proving product-market fit.</dd>
+            <dd>Early signs of life - users, pilots, first revenue. Institutional seed funds join; the goal is proving product-market fit.</dd>
           </div>
           <div class="row">
             <dt>Series A</dt>
@@ -266,8 +266,8 @@ footer a:hover{ color:var(--ink); border-color:var(--tick); }
           </div>
         </dl>
         <div class="xbox">
-          <p class="xbox-label">Worked example — pre-money, post-money, dilution</p>
-          <p>A VC invests <span class="m">$2M</span> at an <span class="m">$8M pre-money</span> valuation. Post-money = 8 + 2 = <span class="m">$10M</span>. The investor's stake = 2 ÷ 10 = <span class="m">20%</span>. Every existing holder — founders included — just got diluted by 20%: a founder who owned 60% now owns 48%. Dilution isn't failure; it's the price of fuel. The question is always whether 48% of the bigger thing beats 60% of the smaller one.</p>
+          <p class="xbox-label">Worked example - pre-money, post-money, dilution</p>
+          <p>A VC invests <span class="m">$2M</span> at an <span class="m">$8M pre-money</span> valuation. Post-money = 8 + 2 = <span class="m">$10M</span>. The investor's stake = 2 ÷ 10 = <span class="m">20%</span>. Every existing holder - founders included - just got diluted by 20%: a founder who owned 60% now owns 48%. Dilution isn't failure; it's the price of fuel. The question is always whether 48% of the bigger thing beats 60% of the smaller one.</p>
         </div>
       </div>
     </div>
@@ -279,19 +279,19 @@ footer a:hover{ color:var(--ink); border-color:var(--tick); }
       <span class="tag">The term sheet</span>
       <div>
         <h2>The six terms that actually matter.</h2>
-        <p>A term sheet is the non-binding blueprint of a deal. Valuation gets the headlines, but these clauses decide who gets what when things go right — and especially when they don't:</p>
+        <p>A term sheet is the non-binding blueprint of a deal. Valuation gets the headlines, but these clauses decide who gets what when things go right - and especially when they don't:</p>
         <dl class="rows">
           <div class="row">
             <dt>Liquidation preference</dt>
-            <dd>Investors get their money out first in a sale. The standard is <b>1x non-participating</b>: take your money back, or convert to common and take your ownership share — whichever is worth more, not both.</dd>
+            <dd>Investors get their money out first in a sale. The standard is <b>1x non-participating</b>: take your money back, or convert to common and take your ownership share - whichever is worth more, not both.</dd>
           </div>
           <div class="row">
             <dt>Participating preferred</dt>
-            <dd>The aggressive version: money back <b>and</b> a share of what's left — the "double dip." Founders resist it; in decent markets it's rare.</dd>
+            <dd>The aggressive version: money back <b>and</b> a share of what's left - the "double dip." Founders resist it; in decent markets it's rare.</dd>
           </div>
           <div class="row">
             <dt>Anti-dilution</dt>
-            <dd>Protects investors if a later round prices lower (a down round). <b>Broad-based weighted average</b> is the fair standard; <b>full ratchet</b> — repricing as if they'd invested at the new low price — is punitive.</dd>
+            <dd>Protects investors if a later round prices lower (a down round). <b>Broad-based weighted average</b> is the fair standard; <b>full ratchet</b> - repricing as if they'd invested at the new low price - is punitive.</dd>
           </div>
           <div class="row">
             <dt>Pro-rata rights</dt>
@@ -299,7 +299,7 @@ footer a:hover{ color:var(--ink); border-color:var(--tick); }
           </div>
           <div class="row">
             <dt>Option pool shuffle</dt>
-            <dd>Investors often require an employee option pool created <b>before</b> the round — carved out of the founders' side. A 10% pool inside an $8M pre effectively lowers what founders are really being paid for their shares. Always ask: pool pre or post?</dd>
+            <dd>Investors often require an employee option pool created <b>before</b> the round - carved out of the founders' side. A 10% pool inside an $8M pre effectively lowers what founders are really being paid for their shares. Always ask: pool pre or post?</dd>
           </div>
           <div class="row">
             <dt>Board &amp; protective provisions</dt>
@@ -316,11 +316,11 @@ footer a:hover{ color:var(--ink); border-color:var(--tick); }
       <span class="tag">SAFEs &amp; notes</span>
       <div>
         <h2>How early money skips the valuation fight.</h2>
-        <p>Pricing a company that's two people and a demo is guesswork, so early rounds often defer it. The instrument of choice is the <b>SAFE</b> — Simple Agreement for Future Equity — money now that converts into shares at the next priced round.</p>
+        <p>Pricing a company that's two people and a demo is guesswork, so early rounds often defer it. The instrument of choice is the <b>SAFE</b> - Simple Agreement for Future Equity - money now that converts into shares at the next priced round.</p>
         <dl class="rows">
           <div class="row">
             <dt>Valuation cap</dt>
-            <dd>The maximum valuation your money converts at. Invest $100K at a $5M cap and the company raises later at $20M — you convert as if it were worth $5M, getting roughly 4x the shares of new investors.</dd>
+            <dd>The maximum valuation your money converts at. Invest $100K at a $5M cap and the company raises later at $20M - you convert as if it were worth $5M, getting roughly 4x the shares of new investors.</dd>
           </div>
           <div class="row">
             <dt>Discount</dt>
@@ -332,7 +332,7 @@ footer a:hover{ color:var(--ink); border-color:var(--tick); }
           </div>
           <div class="row">
             <dt>Convertible note</dt>
-            <dd>The SAFE's older sibling — legally debt, so it adds an interest rate (2–8%) and a maturity date. Same conversion idea, more paperwork and a ticking clock.</dd>
+            <dd>The SAFE's older sibling - legally debt, so it adds an interest rate (2-8%) and a maturity date. Same conversion idea, more paperwork and a ticking clock.</dd>
           </div>
         </dl>
       </div>
@@ -345,12 +345,12 @@ footer a:hover{ color:var(--ink); border-color:var(--tick); }
       <span class="tag">The VC method</span>
       <div>
         <h2>How a VC prices a startup in 60 seconds.</h2>
-        <p>Forget DCFs — there are no cash flows to discount. The VC method works <b>backwards from the exit</b>:</p>
+        <p>Forget DCFs - there are no cash flows to discount. The VC method works <b>backwards from the exit</b>:</p>
         <div class="xbox">
-          <p class="xbox-label">Worked example — backing into a valuation</p>
-          <p>A fund considers a <span class="m">$5M</span> check and, given the risk, needs a <span class="m">10x</span> — so the stake must be worth <span class="m">$50M</span> at exit. They believe the company can exit at <span class="m">$500M</span>, so they need <span class="m">10%</span> ownership at exit. But future rounds will dilute them — assume they'll keep only 75% of today's stake. So they need 10% ÷ 0.75 ≈ <span class="m">13.3%</span> today. For $5M to buy 13.3%, post-money must be 5 ÷ 0.133 ≈ <span class="m">$37.5M</span>. That's the offer — and now you know exactly which assumptions to argue with.</p>
+          <p class="xbox-label">Worked example - backing into a valuation</p>
+          <p>A fund considers a <span class="m">$5M</span> check and, given the risk, needs a <span class="m">10x</span> - so the stake must be worth <span class="m">$50M</span> at exit. They believe the company can exit at <span class="m">$500M</span>, so they need <span class="m">10%</span> ownership at exit. But future rounds will dilute them - assume they'll keep only 75% of today's stake. So they need 10% ÷ 0.75 ≈ <span class="m">13.3%</span> today. For $5M to buy 13.3%, post-money must be 5 ÷ 0.133 ≈ <span class="m">$37.5M</span>. That's the offer - and now you know exactly which assumptions to argue with.</p>
         </div>
-        <p>Every input is debatable — exit value, target multiple, dilution — which is precisely the point. The method doesn't remove judgment; it shows you where the judgment lives.</p>
+        <p>Every input is debatable - exit value, target multiple, dilution - which is precisely the point. The method doesn't remove judgment; it shows you where the judgment lives.</p>
       </div>
     </div>
   </section>
@@ -367,12 +367,12 @@ footer a:hover{ color:var(--ink); border-color:var(--tick); }
           <div class="row"><dt>Runway</dt><dd>Months of cash left at the current burn rate. Fundraising starts long before it hits zero.</dd></div>
           <div class="row"><dt>Burn rate</dt><dd>Net cash a startup spends per month.</dd></div>
           <div class="row"><dt>Lead investor</dt><dd>The VC who sets the round's terms, writes the biggest check, and usually takes the board seat.</dd></div>
-          <div class="row"><dt>Bridge round</dt><dd>A smaller raise to extend runway to a milestone — a bridge to somewhere, ideally.</dd></div>
+          <div class="row"><dt>Bridge round</dt><dd>A smaller raise to extend runway to a milestone - a bridge to somewhere, ideally.</dd></div>
           <div class="row"><dt>Down round</dt><dd>Raising at a lower valuation than last time. Triggers anti-dilution, bruises morale, beats dying.</dd></div>
           <div class="row"><dt>Dry powder</dt><dd>Committed capital a fund hasn't deployed yet.</dd></div>
-          <div class="row"><dt>MOIC</dt><dd>Multiple on invested capital — total value ÷ money in. The simplest "how did we do."</dd></div>
+          <div class="row"><dt>MOIC</dt><dd>Multiple on invested capital - total value ÷ money in. The simplest "how did we do."</dd></div>
           <div class="row"><dt>TVPI / DPI</dt><dd>Fund-level MOIC: TVPI counts paper value plus cash returned; DPI counts only cash actually returned to LPs. DPI is the one you can spend.</dd></div>
-          <div class="row"><dt>IRR</dt><dd>Annualized return that accounts for timing — because getting 3x in four years beats 3x in twelve.</dd></div>
+          <div class="row"><dt>IRR</dt><dd>Annualized return that accounts for timing - because getting 3x in four years beats 3x in twelve.</dd></div>
           <div class="row"><dt>Carry</dt><dd>The GP's 20% share of fund profits. The reason the job pays.</dd></div>
         </dl>
       </div>
@@ -385,7 +385,7 @@ footer a:hover{ color:var(--ink); border-color:var(--tick); }
       <span class="tag">Keep going</span>
       <div>
         <h2>You've got the map. Here's the live feed.</h2>
-        <p>This page is the fundamentals — the part that doesn't change. For the part that changes every week (deals, funds, and what they mean), follow along:</p>
+        <p>This page is the fundamentals - the part that doesn't change. For the part that changes every week (deals, funds, and what they mean), follow along:</p>
         <div class="linklist">
           <a class="linkrow" href="https://substack.com/@vcwithns" target="_blank" rel="noopener">
             <span class="link-name">The newsletter <span class="link-arrow" aria-hidden="true">↗</span></span>
